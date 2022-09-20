@@ -1,0 +1,3 @@
+# Ignores everything from out folder except .pdf files
+out/*
+!out/*.pdf
