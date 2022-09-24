@@ -1,0 +1,13 @@
+\section{Monorepos em ambiente de produção}
+
+Existem diversas estratégias para a implementação de projetos construídos em Monorepos no ambiente de produção, uma delas sendo com a implementação de containers usando Docker. 
+
+Docker é uma ferramenta de plataforma aberta para o desenvolvimento e execução de aplicações, permitindo a separação das aplicações, de sua infraestrutura, sendo possível a entrega de software com maior agilidade. Com Docker é possível gerenciar sua infraestrutura da mesma forma que é gerenciada a aplicação, criando containers de forma efêmera para que possam ser executados sem a necessidade de provisionar uma máquina virtual. Em essência, Docker permite que você crie container encapsulando sua aplicação, de forma modular, permitindo que sejam orquestrados para se comunicarem uns com os outros ou de forma isolada. 
+
+Ao adicionar a aplicação em um container, é comum encontrar situações em que cada container é um repositório, contendo seu Dockerfile específico. No entanto em Monorepos, ore termos todas as aplicações e suas dependências em um único repositório, pode ocasionar em dificuldades durante a orquestração destes containers. 
+
+Um dos principais fatores que podem causar problemas, são as dependências locais do Monorepo, elas são normalmente bibliotecas desenvolvidas internamente no Monorepo para serem reutilizadas entre os demais projetos, cada aplicação quando passa por sua pipeline de build, necessita que todas as dependências sejam copiadas para dentro do container. Uma possível solução é organizar todas essas bibliotecas em uma única pasta e para cada aplicação copiar todas as bibliotecas para cada um dos containers, porém esta solução não é escalável, uma vez que a cada nova biblioteca adicionada ao Monorepo, o tempo de build para cada imagem cresce exponencialmente. 
+
+Um cenário mais escalável é que durante o processo de build das aplicações, as dependências internas sejam tratadas como se fossem pacotes, baixados de uma CND (Content Delivery Network), e caso não sejam encontradas, então realizar o processo de build e publish deste pacote, dessa maneira garantindo que os pacotes sempre serão buildados durante a criação das imagens, porem passando por este fluxo apenas uma vez, sendo possível as demais aplicações apenas baixarem desta CDN a biblioteca recém buildada. 
+
+É importante que as empresas que adotem o Monorepo em sua cultura de desenvolvimento, tenham um fluxo bem definido para o processo das imagens Docker, uma vez que este é um processo que demanda tempo, e se não for devidamente implementado, irá gerar custos buildando pacotes redundantes 

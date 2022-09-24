@@ -1,4 +1,5 @@
 {
+  "editor.wordWrap": "on",
   "latex-workshop.latex.outDir": "./out",
   "latex-workshop.view.pdf.viewer": "tab",
   "latex-workshop.docker.enabled": true,

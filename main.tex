@@ -1,5 +1,42 @@
 \documentclass[12pt]{article}
 
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, left=3cm, right=2cm, top=3cm, bottom=2cm]{geometry}
+\usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{csquotes}
+\usepackage{helvet}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\graphicspath{{./src/img/}}
+\addbibresource{references.bib}
+
+\title{Uma abordagem moderna de Monorepos}
+\author{Gabriel Saito \and Matheus Moreira}
+\date{Novembro 2022}
+
 \begin{document}
-  Hi
+  \maketitle
+
+  \newpage
+  \tableofcontents
+  \onehalfspacing
+
+  \nocite{*}
+
+  \include{src/introduction.tex}
+
+  \input{src/what-is-a-monorepo.tex}
+  \input{src/what-are-repositories.tex}
+  \input{src/monorepo-multirepo-monolith.tex}
+  \input{src/monorepo-in-production-enviroment.tex}
+  \input{src/googles-monorepo.tex}
+  \input{src/monorepo-tools.tex}
+  \input{src/monorepo-culture.tex}
+
+  \newpage
+  \printbibliography
 \end{document}
