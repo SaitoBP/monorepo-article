@@ -1,29 +1,78 @@
-\documentclass[12pt]{article}
+\documentclass[
+	article,
+	11pt,
+	oneside,
+	a4paper,
+	english,
+	brazil,
+	sumario=tradicional
+]{abntex2}
 
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[brazil]{babel}
-\usepackage[a4paper, left=3cm, right=2cm, top=3cm, bottom=2cm]{geometry}
-\usepackage[backend=biber, style=alphabetic, sorting=ynt]{biblatex}
-\usepackage{setspace}
-\usepackage{graphicx}
-\usepackage{csquotes}
-\usepackage{helvet}
+\usepackage[brazilian, hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}
+\usepackage{lmodern}
+\usepackage{indentfirst}
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype}
+\usepackage{lipsum}				% para geração de dummy text
 
-\renewcommand{\familydefault}{\sfdefault}
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1
+		Nenhuma citação no texto.
+	\or
+		Citado na página #2.
+	\else
+		Citado #1 vezes nas páginas #2.
+	\fi
+}
+
+\titulo{Uma abordagem moderna de Monorepos}
+\tituloestrangeiro{A modern aproach to Monorepos}
+
+\autor{Gabriel Saito \and Matheus Moreira}
+
+\local{Brasil}
+\data{Novembro 2022}
+
+\makeatletter
+\makeatother
+\makeindex
+
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+
+\setlength{\parindent}{1.3cm}
+\setlength{\parskip}{0.2cm}
+\SingleSpacing
 
 \graphicspath{{./src/img/}}
-\addbibresource{references.bib}
-
-\title{Uma abordagem moderna de Monorepos}
-\author{Gabriel Saito \and Matheus Moreira}
-\date{Novembro 2022}
 
 \begin{document}
+
+  \selectlanguage{brazil}
+  \frenchspacing 
+
   \maketitle
+
+  % \input{src/summary.tex}
+
+  % \begin{center}
+  %   \smaller
+  %   \textbf{Data de submissão e aprovação}: elemento obrigatório. Indicar dia, mês e ano
+  % \end{center}
 
   \newpage
   \tableofcontents
-  \onehalfspacing
+  \textual
 
   \nocite{*}
 
@@ -38,6 +87,7 @@
   \input{src/monorepo-tools.tex}
   \input{src/monorepo-culture.tex}
 
-  \newpage
-  \printbibliography
+  \postextual
+
+  \bibliography{references.bib}
 \end{document}
